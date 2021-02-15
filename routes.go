@@ -32,9 +32,30 @@ func indexPageRedirect(c *gin.Context) {
 }
 
 // LOGEMENT
+func housingPage(c *gin.Context) {
+	c.HTML(200, "housing.html", nil)
+}
 
+func housePage(c *gin.Context) {
+	// add house data 4 templating
+	c.HTML(200, "house.html", nil)
+}
 
 // DROITS
+func rightsPage(c *gin.Context) {
+	c.HTML(200, "rights.html", nil)
+}
 
+func subjectPage(c *gin.Context) {
+	// add subject data 4 templating
+	c.HTML(200, "subject.html", nil)
+}
 
-// FAQ
+// BLOG
+func blogPage(c *gin.Context) {
+	c.HTML(200, "articles.html", nil)
+}
+
+func articlePage(c *gin.Context) {
+	c.HTML(200, "article.html", nil)
+}
