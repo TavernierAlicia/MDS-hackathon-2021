@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 
-<html>
-<header>
-
-</header>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>StudentHouse - Accueil</title>
+  <meta name="description" content="StudentHouse - Accueil">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../js/navbar.js"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
 
 
 <body>
-  <h1>HOMEPAGE</h1>
+  <h1>Bienvenue sur Studenth, le site qui répond à vos questions concernant les logements étudiants.</h1>
+  <div class="questions">
+    <h2>Une question? Posez la ici!</h2>
+    <input type="search" class="searchBar" id="site-search" name="q" placeholder="ex: Comment obtenir les APL?">
+  </div>
+
+  <div class="logements">
+    <h2>Logements disponibles</h2>
+
+    <ul class="listpreview">
+      {{ range .data}}
+        <li>
+          <a href="/house/{{.Id}}">
+            <div class="houseCard" style="background-image: url({{.House.Pic}})">
+              <p class="titre">{{ .House.Title }}</p>
+              <p class="zone">{{ .House.Zone }}</p>
+            </div>
+          </a>
+        </li>
+      {{ end }}
+      <li>
+        <a href="/housing">Voir plus...</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="articles">
+    <h2>Nos derniers articles</h2>
+    <a href="/rights/1">
+      <div class="houseCard">
+        <img src="url">
+        <p class="title">title</p>
+      </div>
+    </a>
+    <a href="/rights">Voir plus...</a>
+  </div>
+
 </body>
+<footer>
+  <script src="../js/footer.js"></script>
+  <script src="../js/global.js"></script>
+</footer>
 </html>

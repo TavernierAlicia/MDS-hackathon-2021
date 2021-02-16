@@ -11,16 +11,7 @@ func Router() {
 	router := gin.Default()
 
 	//to include html
-	router.LoadHTMLFiles(
-		"templates/index.html", 
-		"templates/404.html", 
-		"templates/articles.html", 
-		"templates/article.html", 
-		"templates/housing.html", 
-		"templates/house.html", 
-		"templates/rights.html", 
-		"templates/subject.html",
-	)
+	router.LoadHTMLGlob("templates/*")
 
 	//to include js
 	router.Static("/js", "./js")
@@ -47,13 +38,14 @@ func Router() {
 	router.GET("/house/:houseid", housePage)
 
 	// MES DROITS
-	router.GET("/mesdroits", rightsPage)
-	router.GET("/mesdroits/:subject", subjectPage)
+	router.GET("/rights", rightsPage)
+	router.GET("/rights/:subject", subjectPage)
 
-	// BLOG
-	router.GET("/blog", blogPage)
-	router.GET("/blog/:articleid", articlePage)
+	// FAQ
+	router.GET("/faq", faqPage)
 
+	// LEGAL
+	router.GET("/legal", legalPage)
 
 	// *** POST ***
 

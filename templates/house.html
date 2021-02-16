@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 
-<html>
-<header>
-
-</header>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>StudentHouse - {{ .data.House.Title }}</title>
+  <meta name="description" content="StudentHouse - {{ .data.House.Title }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../js/navbar.js"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
 
 
 <body>
-  <h1>HOUSE</h1>
+  <h1>{{ .data.House.Title }}</h1>
+  <div>
+    <img src={{ .data.House.Pic }}>
+    <p> Secteur {{ .data.House.Zone }}  - {{ .data.House.Org }}</p>
+  </div>
+  <div>
+    <p>Addresse: {{ .data.House.Addr }}</p>
+    <p>Contact: {{ .data.House.Num }} </p>
+    <a href={{ .data.House.Url }}>Lien vers l'annonce</a>
+  </div>
+  <div>
+
+  </div>
+  <div>
+    <p>Informations: {{ .data.House.Info }} </p>
+    <p>{{ .data.House.Details }}</p>
+    <p>Description: {{ .data.House.Desc }} </p>
+  </div>
 </body>
 </html>

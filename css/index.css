@@ -1,0 +1,77 @@
+:root {
+	--reasons-min: 20;
+	--reasons-max: 26;
+	--reasons-calc: calc(var(--reasons-min) * 0.1rem + (var(--reasons-max) - var(--reasons-min)) * ((100vw - 48rem) / (1440 - 480)));
+	--reasons-size: max(var(--reasons-min) * 0.1rem, min(var(--reasons-calc), var(--reasons-max) * 0.1rem));
+}
+
+
+header .left-side {
+	width: 50%;
+	min-width: 28rem;
+	margin: 7.5vw 0;
+}
+
+header .left-side .store a {
+	width: 49%;
+	display: inline-block;
+}
+header .left-side .store a img {
+	width: 100%;
+}
+
+header #ond-header > img {
+	width: 30%;
+	-o-object-fit: contain;
+	   object-fit: contain;
+	position: absolute;
+	bottom: -5rem;
+	left: 50%;
+}
+
+.questions {
+	position: inherit;
+	background-color: rgba(58, 27, 237, 0.75);
+	border-radius: 1.5rem;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+	display: grid;
+  place-items: center;
+	padding-top: 5%;
+	padding-bottom: 5%;
+}
+
+.questions h2{
+	color: #fff;
+}
+
+.searchBar {
+	position: inherit;
+	width: 90%;
+	height: 50px;
+	border-color: black;
+	-webkit-appearance: none;
+	background-color: transparent;
+	border: 2px solid transparent;
+	border-bottom: 1px solid black;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	font-size: 24px;
+	display:inline-block;
+	margin: auto;
+  display: block;
+}
+
+::placeholder {
+  color: black;
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+	header .left-side {
+		width: 100%;
+		text-align: center;
+	}
+}
