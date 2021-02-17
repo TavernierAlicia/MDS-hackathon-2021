@@ -349,12 +349,8 @@ footer .cp p {
 }
 
 .houseCard {
+  background-repeat: no-repeat;
   height: 250px;
   width: 300px;
 }
 
-.listpreview li :hover {
-  background: #fff;
-  opacity: 0.5;
-  color:#000
-}

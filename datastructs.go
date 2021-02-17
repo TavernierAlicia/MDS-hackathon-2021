@@ -1,5 +1,15 @@
 package main
 
+// try/catch fix structs
+type Block struct {
+	Try     func()
+	Catch   func(Exception)
+	Finally func()
+}
+
+type Exception interface{}
+
+
 // Create data struct for houses previews
 type Preview struct {
 	Records []struct{
@@ -31,3 +41,4 @@ type FullInfos struct {
 		} `json:"fields"`
 	} `json:"records"`
 }
+
