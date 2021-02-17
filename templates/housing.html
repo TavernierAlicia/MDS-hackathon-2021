@@ -2,10 +2,79 @@
 <html>
 
 <head>
-
+  <meta charset="UTF-8">
+  <title>StudentHouse - Accueil</title>
+  <meta name="description" content="StudentHouse - Logements">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../js/navbar.js"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-  <h1>HOUSING</h1>
-</body>
+  <h1>Logements</h1>
+  <div class="searchform">
+    <form method="POST" name="search" action="" id="form">
+      <div class="zoneinput">
+        <label for="selectzone">Zone </label>
+          <select class="custom-select" name="zone" id="selectzone">
+            <script src="../js/displayzones.js"></script>
+          </select>
+      </div>
+      <div class="search">
+        <label for="keyword">Rechercher par mot clé</label>
+        <input type="search" id="searchkw" name="keyword">
+      </div>
+      <input type="submit" id="sendform" value="Chercher">
+    </form>
+  </div>
 
+  <div class="houseslist">
+    {{ if ne .keywords "" }}
+      {{ if eq .zone "" }}
+        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans toute la France</h2>
+      {{ else }}
+        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans la zone "{{ .zone }}"</h2>
+      {{ end }}
+    {{ else }}
+      {{ if eq .zone ""}}
+        <h2>Résultats : </h2>
+      {{ else}}
+        <h2>Résultats pour la zone "{{ .zone }}"</h2>
+      {{ end }}
+    {{ end }}
+
+
+    <ul class="listpreview">
+      {{ if .data }}
+      {{ range .data}}
+        <li>
+          <a href="/house/{{.Id}}">
+            <!-- if no .House.Pic -->
+            {{ if eq .House.Pic  "" }}
+              <div class="houseCard" style="background-image: url('../pictures/no-image.png')">
+            <!-- else -->
+            {{ else }}
+              <div class="houseCard" style="background-image: url({{.House.Pic}})">
+            {{ end }}
+              <p class="titre">{{ .House.Title }}</p>
+              <p class="zone">{{ .House.Zone }}</p>
+            </div>
+          </a>
+        </li>
+      {{ end }}
+      {{ else }}
+        </ul>
+        <div class="noresults">
+          <p>Aucuns résultats obtenus pour cette recherche, nous vous conseillons de réitérer votre demande avec de nouveaux paramètres.</p>
+        </div>
+        <ul>
+      {{ end }}
+    </ul>
+  </div>
+
+</body>
+<footer>
+  <script src="../js/footer.js"></script>
+  <script src="../js/global.js"></script>
+</footer>
 </html>

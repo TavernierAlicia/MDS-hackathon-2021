@@ -9,6 +9,8 @@ import (
 	"encoding/json"
 )
 
+var zone string
+var keyword string
 
 // adding try/catch function on this file //
 
@@ -83,7 +85,35 @@ func indexPageRedirect(c *gin.Context) {
 
 // LOGEMENT
 func housingPage(c *gin.Context) {
-	c.HTML(200, "housing.html", nil)
+	// request API with a try/catch
+	Block{
+		Try: func() {
+				resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=10000")
+			if err != nil {
+				log.Error("Cannot get data from API")
+			}
+			
+			defer resp.Body.Close()
+			
+			body, err := ioutil.ReadAll(resp.Body)
+			
+			if err != nil {
+				log.Error("Cannot read data from API")
+			}
+				
+			data := Preview{}
+				
+			err = json.Unmarshal(body, &data)
+			if err != nil {
+				log.Error("unmarshal error")
+			}
+			c.HTML(200, "housing.html", map[string]interface{}{"data": data.Records, "zone": zone, "keywords": keyword,})
+		},
+		Catch: func(e Exception) {
+			fmt.Printf("Caught %v\n", e)
+			errorPage(c)
+		},
+	}.Do()
 }
 
 // LOGEMENT PER ID
@@ -121,6 +151,60 @@ func housePage(c *gin.Context) {
 	}.Do()
 }
 
+
+// SEARCH HOME
+func searchHome(c *gin.Context) {
+	c.Request.ParseForm()
+	zone = strings.Join(c.Request.PostForm["zone"], " ")
+	keyword = strings.Join(c.Request.PostForm["keyword"], " ")
+
+	var req string
+
+	switch (true) {
+	case zone == "tous" && keyword == "":
+		housingPage(c)
+		return
+	case (zone != "tous" && keyword == ""):
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=10000&facet=zone&refine.zone="+zone
+	case (zone == "tous" && keyword != ""):
+		zone = ""
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=10000&q="+keyword
+	case (zone != "tous" && keyword != ""):
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=10000&q="+keyword+"&facet=zone&refine.zone="+zone
+	default:
+		housingPage(c)
+		return
+	}
+
+		// make new request
+		Block{
+			Try: func() {
+				fmt.Println(req)
+					resp, err := http.Get(req)
+				if err != nil {
+					log.Error("Cannot get data from API")
+				}
+				defer resp.Body.Close()
+				body, err := ioutil.ReadAll(resp.Body)
+				
+				if err != nil {
+					log.Error("Cannot read data from API")
+				}
+				data := Preview{}
+					
+				err = json.Unmarshal(body, &data)
+				if err != nil {
+					log.Error("unmarshal error")
+				}
+				c.HTML(200, "housing.html", map[string]interface{}{"data": data.Records, "zone": zone, "keywords": keyword,})
+			},
+			Catch: func(e Exception) {
+				fmt.Printf("Caught %v\n", e)
+				errorPage(c)
+			},
+		}.Do()
+	
+}
 
 
 // MES DROITS
