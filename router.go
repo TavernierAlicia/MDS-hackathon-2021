@@ -49,6 +49,7 @@ func Router() {
 
 	// *** POST ***
 	router.POST("/housing", searchHome)
+	router.POST("/rights", searchRights)
 
 
 

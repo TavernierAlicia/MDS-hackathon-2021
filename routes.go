@@ -51,7 +51,7 @@ func indexPage(c *gin.Context) {
 	// request API with a try/catch
 	Block{
 		Try: func() {
-			resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=3&facet=zone")
+			resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=4&facet=zone")
 			if err != nil {
 				log.Error("Cannot get data from API")
 			}
@@ -64,16 +64,26 @@ func indexPage(c *gin.Context) {
 				log.Error("Cannot read data from API")
 			}
 			
-			data := Preview{}
+			houses := Preview{}
 			
-			err = json.Unmarshal(body, &data)
+			err = json.Unmarshal(body, &houses)
 			if err != nil {
 				log.Error("unmarshal error")
 			}
-			c.HTML(200, "index.html", map[string]interface{}{"data": data.Records})
+
+			// request database
+			db, err := RunDb()
+			if err != nil {
+				log.Error("Cannot connect to database")
+			}
+			articles := []*ArticleInfos{}
+			err = db.Select(&articles, "SELECT article.id, article.title, article.main_picture, CONCAT(LEFT(article_content.text, 100), '...') AS text, 0.0 AS relevance FROM article JOIN article_content ON article.id = article_content.article_id GROUP BY article.id LIMIT 4")
+			
+			fmt.Println(articles)
+			c.HTML(200, "index.html", map[string]interface{}{"houses": houses.Records, "articles": articles})
 		},
 		Catch: func(e Exception) {
-			fmt.Printf("Caught %v\n", e)
+			log.Error("Caught %v\n "+fmt.Sprintf("%v", e))
 			errorPage(c)
 		},
 	}.Do()
@@ -88,11 +98,10 @@ func housingPage(c *gin.Context) {
 	// request API with a try/catch
 	Block{
 		Try: func() {
-				resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=10000")
+				resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=1000")
 			if err != nil {
 				log.Error("Cannot get data from API")
 			}
-			
 			defer resp.Body.Close()
 			
 			body, err := ioutil.ReadAll(resp.Body)
@@ -100,9 +109,7 @@ func housingPage(c *gin.Context) {
 			if err != nil {
 				log.Error("Cannot read data from API")
 			}
-				
 			data := Preview{}
-				
 			err = json.Unmarshal(body, &data)
 			if err != nil {
 				log.Error("unmarshal error")
@@ -110,7 +117,7 @@ func housingPage(c *gin.Context) {
 			c.HTML(200, "housing.html", map[string]interface{}{"data": data.Records, "zone": zone, "keywords": keyword,})
 		},
 		Catch: func(e Exception) {
-			fmt.Printf("Caught %v\n", e)
+			log.Error("Caught %v\n "+fmt.Sprintf("%v", e))
 			errorPage(c)
 		},
 	}.Do()
@@ -145,7 +152,7 @@ func housePage(c *gin.Context) {
 			c.HTML(200, "house.html", map[string]interface{}{"data": data.Records[0]})
 		}, 
 		Catch: func(e Exception) {
-			fmt.Printf("Caught %v\n", e)
+			log.Error("Caught %v\n "+fmt.Sprintf("%v", e))
 			errorPage(c)
 		},
 	}.Do()
@@ -160,17 +167,18 @@ func searchHome(c *gin.Context) {
 
 	var req string
 
+	// switch case for request type
 	switch (true) {
 	case zone == "tous" && keyword == "":
 		housingPage(c)
 		return
 	case (zone != "tous" && keyword == ""):
-		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=10000&facet=zone&refine.zone="+zone
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=1000&facet=zone&refine.zone="+zone
 	case (zone == "tous" && keyword != ""):
 		zone = ""
-		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=10000&q="+keyword
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=1000&q="+keyword
 	case (zone != "tous" && keyword != ""):
-		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=10000&q="+keyword+"&facet=zone&refine.zone="+zone
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=1000&q="+keyword+"&facet=zone&refine.zone="+zone
 	default:
 		housingPage(c)
 		return
@@ -179,7 +187,6 @@ func searchHome(c *gin.Context) {
 		// make new request
 		Block{
 			Try: func() {
-				fmt.Println(req)
 					resp, err := http.Get(req)
 				if err != nil {
 					log.Error("Cannot get data from API")
@@ -199,7 +206,7 @@ func searchHome(c *gin.Context) {
 				c.HTML(200, "housing.html", map[string]interface{}{"data": data.Records, "zone": zone, "keywords": keyword,})
 			},
 			Catch: func(e Exception) {
-				fmt.Printf("Caught %v\n", e)
+				log.Error("Caught %v\n "+fmt.Sprintf("%v", e))
 				errorPage(c)
 			},
 		}.Do()
@@ -209,22 +216,82 @@ func searchHome(c *gin.Context) {
 
 // MES DROITS
 func rightsPage(c *gin.Context) {
-	c.HTML(200, "rights.html", nil)
+	// request database
+	db, err := RunDb()
+	if err != nil {
+		log.Error("Cannot connect to database")
+	}
+	data := []*ArticleInfos{}
+	db.Select(&data, "SELECT article.id, article.title, article.main_picture, CONCAT(LEFT(article_content.text, 100), '...') AS text, 0.0 AS relevance FROM article JOIN article_content ON article.id = article_content.article_id GROUP BY article.id LIMIT 4")
+	c.HTML(200, "rights.html", map[string]interface{}{"data": data, "keywords": keyword,})
 }
 
-func subjectPage(c *gin.Context) {
-	// add subject data 4 templating
-	c.HTML(200, "subject.html", nil)
+// Search Article
+func searchRights(c *gin.Context) {
+	// manage keywords
+	c.Request.ParseForm()
+	keywords := strings.Join(c.Request.PostForm["keyword"], " ")
+	keywords = strings.Replace(keywords, "'", "", -1)
+
+	if keywords == "" {
+		rightsPage(c)
+	}
+
+	fmt.Println(keywords)
+	db, err := RunDb()
+	if err != nil {
+		log.Error("Cannot connect to database")
+	}
+
+	data := []*ArticleInfos{}
+	db.Select(&data, "SELECT article_content.article_id AS id, article.title, article.main_picture, CONCAT(LEFT(article_content.text, 100), '...') AS text, SUM(MATCH (article_content.low_title) AGAINST('"+keywords+"*') + MATCH (article_content.text) AGAINST('"+keywords+"*') + MATCH (article.title) AGAINST ('"+keywords+"*')) as relevance FROM article_content JOIN article ON article_content.id = article.id WHERE MATCH (article_content.low_title) AGAINST('"+keywords+"*' IN BOOLEAN MODE) OR MATCH (article_content.text) AGAINST('"+keywords+"*' IN BOOLEAN MODE) OR MATCH (article.title) AGAINST ('"+keywords+"*' IN BOOLEAN MODE) GROUP BY article_id ORDER BY relevance")
+	c.HTML(200, "rights.html", map[string]interface{}{"data": data, "keywords": keywords,})
+	
+	// keywords precious request
+	// SELECT article_content.article_id AS id, article.title, article.main_picture, CONCAT(LEFT(article_content.text, 100), '...') AS text, SUM(MATCH (article_content.low_title) AGAINST('"+keywords+"*') + MATCH (article_content.text) AGAINST('"+keywords+"*') + MATCH (article.title) AGAINST ('"+keywords+"*')) as relevance FROM article_content JOIN article ON article_content.id = article.id WHERE MATCH (article_content.low_title) AGAINST('"+keywords+"*' IN BOOLEAN MODE) OR MATCH (article_content.text) AGAINST('"+keywords+"*' IN BOOLEAN MODE) OR MATCH (article.title) AGAINST ('"+keywords+"*' IN BOOLEAN MODE) GROUP BY article_id ORDER BY relevance 
+
 }
+
+
+
+// ARTICLE
+func subjectPage(c *gin.Context) {
+
+	id := strings.Replace(c.Request.URL.Path, "/rights/", "", -1)
+
+	db, err := RunDb()
+	if err != nil {
+		log.Error("Cannot connect to database")
+	}
+	
+	infos := []*ArticleInfos{}
+	db.Select(&infos, "SELECT id, title, main_picture, '' AS text, 0.0 AS relevance FROM article WHERE id = ?", id)
+
+
+	content := []*ArticleContent{}
+	db.Select(&content, "SELECT id, IFNULL(low_title, '') AS low_title, IFNULL(text, '') AS text, IFNULL(picture, '') AS picture FROM article_content WHERE article_id = ? ORDER BY id ASC", id)
+
+
+
+	c.HTML(200, "subject.html", map[string]interface{}{"infos": infos, "content": content})
+}
+
+
+
 
 // FAQ
 func faqPage(c *gin.Context) {
-	// add subject data 4 templating
-	c.HTML(200, "faq.html", nil)
+	db, err := RunDb()
+	if err != nil {
+		errorPage(c)
+	} else {
+		data := []*FAQ{}
+		db.Select(&data, "SELECT * FROM faq")
+		c.HTML(200, "faq.html", map[string]interface{}{"data": data})
+	}
 }
 
 // LEGAL
 func legalPage(c *gin.Context) {
-	// add subject data 4 templating
 	c.HTML(200, "legal.html", nil)
 }

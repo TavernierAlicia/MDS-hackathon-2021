@@ -33,7 +33,6 @@ ul.faq-list {
 
 ul.faq-list li p.question::before {
 	content: '';
-	background-image: url('../pictures/question.png');
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;

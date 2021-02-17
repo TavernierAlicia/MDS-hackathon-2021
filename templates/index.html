@@ -23,9 +23,9 @@
     <h2>Logements disponibles</h2>
 
     <ul class="listpreview">
-      {{ range .data}}
+      {{ range .houses}}
         <li>
-          <a href="/house/{{.Id}}">
+          <a href="/house/{{ .Id }}">
             <div class="houseCard" style="background-image: url({{.House.Pic}})">
               <p class="titre">{{ .House.Title }}</p>
               <p class="zone">{{ .House.Zone }}</p>
@@ -41,13 +41,23 @@
 
   <div class="articles">
     <h2>Nos derniers articles</h2>
-    <a href="/rights/1">
-      <div class="houseCard">
-        <img src="url">
-        <p class="title">title</p>
-      </div>
-    </a>
-    <a href="/rights">Voir plus...</a>
+
+    <ul class="listpreview">
+      {{ range .articles}}
+        <li>
+          <a href="/rights/{{ .Id }}">
+            <div class="houseCard" style="background-image: url({{.MainPicture}})">
+              <p class="title">{{ .Title }}</p>
+              <p class="title">{{ .Prev }}</p>
+            </div>
+          </a>
+        </li>
+      {{ end }}
+      <li>
+        <a href="/rights">Voir plus...</a>
+      </li>
+    </ul>
+    
   </div>
 
 </body>

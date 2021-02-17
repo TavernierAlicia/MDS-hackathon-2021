@@ -1,12 +1,65 @@
 <!DOCTYPE html>
-
 <html>
-<header>
 
-</header>
-
-
+<head>
+  <meta charset="UTF-8">
+  <title>StudentHouse - Mes droits</title>
+  <meta name="description" content="StudentHouse - Mes droits">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../js/navbar.js"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
 <body>
-  <h1>RIGHTS</h1>
+  <h1>Mes droits</h1>
+  <div class="searchform">
+    <form method="POST" name="search" action="" id="form">
+      <div class="search">
+        <label for="keyword">Rechercher par mot clé</label>
+        <input type="search" id="searchkw" name="keyword">
+      </div>
+      <input type="submit" id="sendform" value="Chercher">
+    </form>
+  </div>
+
+  <div class="houseslist">
+    {{ if eq .keywords "" }}
+      <h2>Tous nos articles:</h2>
+    {{ else }}
+      <h2>Résultats pour les mots clés: "{{ .keywords }}":</h2>
+    {{ end }}
+
+
+    <ul class="listpreview">
+      {{ if .data }}
+      {{ range .data}}
+        <li>
+          <a href="/rights/{{.Id}}">
+
+            {{ if eq .MainPicture  "" }}
+              <div class="houseCard" style="background-image: url('../pictures/no-image.png')">
+            {{ else }}
+              <div class="houseCard" style="background-image: url({{.MainPicture}})">
+            {{ end }}
+              <p class="titre">{{ .Title }}</p>
+              <p class="zone">{{ .Prev }}</p>
+            </div>
+          </a>
+        </li>
+      {{ end }}
+      {{ else }}
+        </ul>
+        <div class="noresults">
+          <p>Aucuns résultats obtenus pour cette recherche, nous vous conseillons de réitérer votre demande avec de nouveaux paramètres.</p>
+        </div>
+        <ul>
+      {{ end }}
+    </ul>
+  </div>
+
 </body>
+<footer>
+  <script src="../js/footer.js"></script>
+  <script src="../js/global.js"></script>
+</footer>
 </html>

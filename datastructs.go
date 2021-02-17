@@ -42,3 +42,27 @@ type FullInfos struct {
 	} `json:"records"`
 }
 
+
+// Article structs
+type ArticleInfos struct {
+	Id int `db:"id"`
+	Title string `db:"title"`
+	MainPicture string `db:"main_picture"`
+	Prev string `db:"text"`
+	Relevance float64 `db:"relevance"`
+}
+
+
+type ArticleContent struct {
+	Id int `db:"id"`
+	LowTitle string `db:"low_title"`
+	Text string `db:"text"`
+	Picture string `db:"picture"`
+}
+
+// Create FAQ struct
+type FAQ struct {
+	Id int `db:"id"`
+	Question string `db:"question"`
+	Answer string `db:"answer"`
+}
