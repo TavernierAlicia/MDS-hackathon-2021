@@ -1,12 +1,89 @@
 <!DOCTYPE html>
 
-<html>
-<header>
-
-</header>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>StudentHouse - Résultats</title>
+  <meta name="description" content="StudentHouse - Accueil">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../js/navbar.js"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
 
 
 <body>
-  <h1>SEARCHRESULTS</h1>
+  <h1> Résultats de la recherche: </h1>
+  {{ if .houses }}
+    <div class="logements">
+      <h2>Logements disponibles pour "{{ .keywords }}"</h2>
+      <ul class="listpreview">
+        {{ range .houses}}
+          <li>
+            <a href="/house/{{ .Id }}">
+              <div class="houseCard" style="background-image: url({{.House.Pic}})">
+                <p class="titre">{{ .House.Title }}</p>
+                <p class="zone">{{ .House.Zone }}</p>
+              </div>
+            </a>
+          </li>
+        {{ end }}
+        <li>
+          <a href="/housing">Voir plus...</a>
+        </li>
+      </ul>
+    </div>
+  {{ end }}
+
+  {{ if .articles }}
+    <div class="articles">
+      <h2>Articles pour "{{ .keywords }}"</h2>
+      <ul class="listpreview">
+        {{ range .articles}}
+          <li>
+            <a href="/rights/{{ .Id }}">
+              <div class="houseCard" style="background-image: url({{.MainPicture}})">
+                <p class="title">{{ .Title }}</p>
+                <p class="title">{{ .Prev }}</p>
+              </div>
+            </a>
+          </li>
+        {{ end }}
+        <li>
+          <a href="/rights">Voir plus...</a>
+        </li>
+      </ul>
+    </div>
+  {{ end }}
+
+  {{ if .faq }}
+    <div>
+      <h2>FAQ pour "{{ .keywords }}"</h2>
+      <ul class="listpreview">
+        {{ range .faq}}
+          <li>
+            <a href="/rights/{{ .Id }}">
+              <div class="houseCard">
+                <p class="title">{{ .Question }}</p>
+                <p class="title">{{ .Answer }}</p>
+              </div>
+            </a>
+          </li>
+        {{ end }}
+        <li>
+          <a href="/faq">Voir plus...</a>
+        </li>
+      </ul>
+    </div>
+  {{ end }}
+
+  {{ if eq .allnil  1 }}
+    <p>Nous sommes désolés, aucun résultat de correspond à votre recherche.</p> 
+  {{ end }}
+
 </body>
+<footer>
+  <script src="../js/footer.js"></script>
+  <script src="../js/global.js"></script>
+</footer>
 </html>

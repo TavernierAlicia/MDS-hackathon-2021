@@ -65,4 +65,13 @@ type FAQ struct {
 	Id int `db:"id"`
 	Question string `db:"question"`
 	Answer string `db:"answer"`
+	Relevance float64 `db:"relevance"`
+}
+
+
+// Create the ULTIMATE STRUCT
+type All struct {
+	PW []*Preview
+	AI []*ArticleContent
+	FAQ []*FAQ
 }

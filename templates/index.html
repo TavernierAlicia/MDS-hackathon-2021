@@ -16,7 +16,10 @@
   <h1>Bienvenue sur Studenth, le site qui répond à vos questions concernant les logements étudiants.</h1>
   <div class="questions">
     <h2>Une question? Posez la ici!</h2>
-    <input type="search" class="searchBar" id="site-search" name="q" placeholder="ex: Comment obtenir les APL?">
+    <form method="POST" name="search" action="" id="form">
+      <input type="search" class="searchBar" id="site-search" name="keyword" placeholder="ex: Comment obtenir les APL?">
+      <input type="submit" id="sendform" value="Chercher">
+    </form>
   </div>
 
   <div class="logements">

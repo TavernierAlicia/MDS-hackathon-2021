@@ -48,6 +48,7 @@ func Router() {
 	router.GET("/legal", legalPage)
 
 	// *** POST ***
+	router.POST("/", searchAll)
 	router.POST("/housing", searchHome)
 	router.POST("/rights", searchRights)
 
