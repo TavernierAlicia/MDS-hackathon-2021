@@ -52,8 +52,6 @@ func Router() {
 	router.POST("/housing", searchHome)
 	router.POST("/rights", searchRights)
 
-
-
 	// RUN ROUTER
 	router.Run("127.0.0.1:3000")
 }
