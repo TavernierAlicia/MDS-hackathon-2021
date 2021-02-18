@@ -15,8 +15,7 @@
 <body>
 
   <div class="logements">
-    <h2>Logements disponibles</h2>
-
+    <h2>DÉCOUVREZ L'ENSEMBLE DES LOGEMENTS ÉTUDIANTS</h2>
     <ul class="listpreview">
       {{ range .houses}}
         <li>
@@ -24,8 +23,14 @@
              <div class="houseCard"> <!-- style="background-image: url({{.House.Pic}})" -->
               <img class="captions" src="{{.House.Pic}}" >
                 <div class="details">
-                  <p class="housetitle">{{ .House.Title }}</p>
-                  <p class="zone">{{ .House.Zone }}</p>
+                  <div class="left">
+                    <p class="housetitle">{{ .House.Title }}</p>
+                    <p class="zone">{{ .House.Zone }}</p>
+                  </div>
+                  <div class="right">
+                    <p class="price">300 €</p>
+                    <div class="fakebtn"><p>EN SAVOIR PLUS</p></div>
+                  </div>
                 </div>
             </div>
           </a>
@@ -33,32 +38,33 @@
       {{ end }}
     </ul>
     <div class="more">
-      <a href="/housing">Voir plus...</a>
+      <a href="/housing"><img src="../pictures/more.png"></a>
     </div>
   </div>
 
-  <div class="articles">
-    <h2>Nos derniers articles</h2>
+  <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
 
+  <div class="articles">
+    <h2>ACTUALITÉS</h2>
     <ul class="listpreview">
-      {{ range .articles}}
+      {{ range .articles }}
         <li>
           <a href="/rights/{{ .Id }}">
-             <div class="houseCard"> <!--style="background-image: url({{.MainPicture}})" -->
-                <img class="captions" src="{{.MainPicture}}" >
-                <div class="details">
-                  <p class="articletitle">{{ .Title }}</p>
-                  <p class="articleprev">{{ .Prev }}</p>
+            <div class="houseCard"> <!--style="background-image: url({{.MainPicture}})" -->
+              <img class="captions" src="{{.MainPicture}}" >
+              <div class="details">
+                <p class="articletitle">{{ .Title }}</p>
+                <p class="articleprev">{{ .Prev }}</p>
+                <p class="date">{{ .Date }}</p>
               </div>
             </div>
           </a>
         </li>
       {{ end }}
-      <li>
-        <a href="/rights">Voir plus...</a>
-      </li>
     </ul>
-    
+    <div class="more">
+      <a href="/rights"><img src="../pictures/more.png"></a>
+    </div>
   </div>
 
 </body>

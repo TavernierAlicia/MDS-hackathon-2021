@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
+  <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
   <h1>Mes droits</h1>
   <div class="searchform">
     <form method="POST" name="search" action="" id="form">
@@ -24,9 +25,9 @@
 
   <div class="houseslist">
     {{ if eq .keywords "" }}
-      <h2>Tous nos articles:</h2>
+      <h2>Tous nos articles ({{ .rows }}) :</h2>
     {{ else }}
-      <h2>Résultats pour les mots clés: "{{ .keywords }}":</h2>
+      <h2>Résultats pour les mots clés: "{{ .keywords }}" ({{ .rows }}):</h2>
     {{ end }}
 
 
@@ -34,15 +35,20 @@
       {{ if .data }}
       {{ range .data}}
         <li>
-          <a href="/rights/{{.Id}}">
+          <a class="imglink" href="/rights/{{.Id}}">
 
             {{ if eq .MainPicture  "" }}
-              <div class="houseCard" style="background-image: url('../pictures/no-image.png')">
+              <div class="houseCard">
+                <img class="captions" src="../pictures/no-image.png" >
             {{ else }}
-              <div class="houseCard" style="background-image: url({{.MainPicture}})">
+              <div class="houseCard">
+                <img class="captions" src="{{.MainPicture}}" >
             {{ end }}
-              <p class="titre">{{ .Title }}</p>
-              <p class="zone">{{ .Prev }}</p>
+              <div class="details">
+                <p class="articletitle">{{ .Title }}</p>
+                <p class="articleprev">{{ .Prev }}</p>
+                <p class="date">{{ .Date }}</p>
+            </div>
             </div>
           </a>
         </li>

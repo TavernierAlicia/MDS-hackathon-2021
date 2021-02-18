@@ -12,11 +12,19 @@ p.date {
 	margin-bottom: 1rem;
 	color: #555;
 }
-p.question { position: relative; }
+p.question { 
+	position: relative;
+}
 p.question,
 p.legal-title {
 	font-weight: bold;
+	margin-top: 50px;
 	margin-bottom: 0;
+	color:#002E50;
+}
+
+p.description {
+	padding: 0 2.5vw 0 5rem;
 }
 
 ul.faq-list {
@@ -35,4 +43,9 @@ ul.faq-list li p.question::before {
 	position: absolute;
 	right: calc(100% + 1.5rem);
 	bottom: 0;
+}
+
+h1.faqtitle {
+	padding: 0 2.5vw 0 5rem;
+	text-align: left;
 }

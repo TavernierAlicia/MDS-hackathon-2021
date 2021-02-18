@@ -37,6 +37,13 @@ function removeClassNav() {
 }
 
 
+function scrollButton() {
+	if (window.scrollY > 20) {
+		window.scrollTo({top:0, left:0, behavior:"smooth"})
+	}
+}
+
+
 
 
 document.getElementById('menuButton').addEventListener('click', () => {

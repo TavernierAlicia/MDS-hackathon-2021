@@ -2,11 +2,24 @@
 
 <html>
 <header>
-
+  <meta charset="UTF-8">
+  <title>Studenth - {{ .data.House.Title }}</title>
+  <meta name="description" content="Studenth - {{ .data.House.Title }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../js/navbar.js"></script>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
 </header>
 
 
 <body>
-  <h1>ERROR 404</h1>
+  <div class="oops">
+    <img src="../pictures/404.png">
+    <h1>Désolé, une erreur s'est produite, cette page n'existe peut-être pas.</h1>
+  </div>
 </body>
+<footer>
+  <script src="../js/footer.js"></script>
+  <script src="../js/global.js"></script>
+</footer>
 </html>

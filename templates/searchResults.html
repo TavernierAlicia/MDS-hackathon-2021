@@ -9,77 +9,83 @@
   <script src="../js/navbar.js"></script>
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/legal.css">
 </head>
 
 
 <body>
-  <h1> Résultats de la recherche: </h1>
-  {{ if .houses }}
+  <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
+  <h1> Résultats de la recherche: "{{ .keywords }}" </h1>
+
+    {{ if eq .allnil  1 }}
+      <div class="noresults">
+        <p>Nous sommes désolés, aucun résultat de correspond à votre recherche.</p> 
+      </div>
+    {{ end }}
+    
+    <div class="totheleft">
     <div class="logements">
-      <h2>Logements disponibles pour "{{ .keywords }}"</h2>
+      <h2 class="light">Logements ({{ .Hrows }}) </h2>
       <ul class="listpreview">
         {{ range .houses}}
           <li>
-            <a href="/house/{{ .Id }}">
-              <div class="houseCard" style="background-image: url({{.House.Pic}})">
-                <p class="titre">{{ .House.Title }}</p>
-                <p class="zone">{{ .House.Zone }}</p>
+            <a class="imglink" href="/house/{{ .Id }}">
+              <div class="houseCard"> <!-- style="background-image: url({{.House.Pic}})" -->
+                <img class="captions" src="{{.House.Pic}}" >
+                  <div class="details">
+                    <div class="left">
+                      <p class="housetitle">{{ .House.Title }}</p>
+                      <p class="zone">{{ .House.Zone }}</p>
+                    </div>
+                    <div class="right">
+                      <p class="price">300 €</p>
+                      <div class="fakebtn"><p>EN SAVOIR PLUS</p></div>
+                    </div>
+                  </div>
               </div>
             </a>
           </li>
         {{ end }}
-        <li>
-          <a href="/housing">Voir plus...</a>
-        </li>
       </ul>
     </div>
-  {{ end }}
+  </div>
 
-  {{ if .articles }}
+    <div class="totheleft">
     <div class="articles">
-      <h2>Articles pour "{{ .keywords }}"</h2>
+      <h2 class="light">Articles ({{ .Arows }})</h2>
       <ul class="listpreview">
         {{ range .articles}}
           <li>
-            <a href="/rights/{{ .Id }}">
-              <div class="houseCard" style="background-image: url({{.MainPicture}})">
-                <p class="title">{{ .Title }}</p>
-                <p class="title">{{ .Prev }}</p>
-              </div>
+            <a class="imglink" href="/rights/{{ .Id }}">
+              <div class="houseCard"> <!--style="background-image: url({{.MainPicture}})" -->
+                <img class="captions" src="{{.MainPicture}}" >
+                <div class="details">
+                  <p class="articletitle">{{ .Title }}</p>
+                  <p class="articleprev">{{ .Prev }}</p>
+                  <p class="date">{{ .Date }}</p>
+                </div>
             </a>
           </li>
         {{ end }}
-        <li>
-          <a href="/rights">Voir plus...</a>
-        </li>
       </ul>
     </div>
-  {{ end }}
+  </div>
 
-  {{ if .faq }}
-    <div>
-      <h2>FAQ pour "{{ .keywords }}"</h2>
+    <div class="totheleft">
+    <div class="onequestion">
+      <h2 class="light">Questions ({{ .Frows }})</h2>
       <ul class="listpreview">
         {{ range .faq}}
           <li>
-            <a href="/rights/{{ .Id }}">
-              <div class="houseCard">
-                <p class="title">{{ .Question }}</p>
-                <p class="title">{{ .Answer }}</p>
-              </div>
+            <a class="imglink" href="/faq">
+                <p class="question">{{ .Question }}</p>
+                <p class="answer">{{ .Answer }}</p>
             </a>
           </li>
         {{ end }}
-        <li>
-          <a href="/faq">Voir plus...</a>
-        </li>
       </ul>
     </div>
-  {{ end }}
-
-  {{ if eq .allnil  1 }}
-    <p>Nous sommes désolés, aucun résultat de correspond à votre recherche.</p> 
-  {{ end }}
+  </div>
 
 </body>
 <footer>

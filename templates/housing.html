@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
+  <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
   <h1>Logements</h1>
   <div class="searchform">
     <form method="POST" name="search" action="" id="form">
@@ -31,33 +32,41 @@
   <div class="houseslist">
     {{ if ne .keywords "" }}
       {{ if eq .zone "" }}
-        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans toute la France</h2>
+        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans toute la France ({{ .rows }}) </h2>
       {{ else }}
-        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans la zone "{{ .zone }}"</h2>
+        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans la zone "{{ .zone }}" ({{ .rows }})</h2>
       {{ end }}
     {{ else }}
       {{ if eq .zone ""}}
-        <h2>Résultats : </h2>
+        <h2>Résultats ({{ .rows }}) : </h2>
       {{ else}}
-        <h2>Résultats pour la zone "{{ .zone }}"</h2>
+        <h2>Résultats pour la zone "{{ .zone }}" ({{ .rows }})</h2>
       {{ end }}
     {{ end }}
-
 
     <ul class="listpreview">
       {{ if .data }}
       {{ range .data}}
         <li>
-          <a href="/house/{{.Id}}">
-            <!-- if no .House.Pic -->
-            {{ if eq .House.Pic  "" }}
-              <div class="houseCard" style="background-image: url('../pictures/no-image.png')">
-            <!-- else -->
-            {{ else }}
-              <div class="houseCard" style="background-image: url({{.House.Pic}})">
-            {{ end }}
-              <p class="titre">{{ .House.Title }}</p>
-              <p class="zone">{{ .House.Zone }}</p>
+          <a class="imglink" href="/house/{{.Id}}">
+            <div class="houseCard">
+              <!-- if no .House.Pic -->
+              {{ if eq .House.Pic  "" }}
+                <img class="captions" src="../pictures/no-image.png" >
+              <!-- else -->
+              {{ else }}
+                <img class="captions" src="{{.House.Pic}}" >
+              {{ end }}
+                <div class="details">
+                  <div class="left">
+                    <p class="titre">{{ .House.Title }}</p>
+                    <p class="zone">{{ .House.Zone }}</p>
+                  </div>
+                  <div class="right">
+                    <p class="price">300 €</p>
+                    <div class="fakebtn"><p>EN SAVOIR PLUS</p></div>
+                  </div>
+                </div>
             </div>
           </a>
         </li>

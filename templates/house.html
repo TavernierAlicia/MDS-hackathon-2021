@@ -16,26 +16,45 @@
 
 
 <body>
+  <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
   <h1>{{ .data.House.Title }}</h1>
-  <div>
+  <h2 class="lighttitle"> Secteur {{ .data.House.Zone }} - {{ .data.House.Org }}</h2>
+  <div class="greatPicture">
+    <img src={{ .data.House.Pic }}>
+    <img src={{ .data.House.Pic }}>
     <img src={{ .data.House.Pic }}>
     <!-- map for later -->
     <!-- <div id="my_osm_widget_map"></div> -->
-    <p> Secteur {{ .data.House.Zone }} - {{ .data.House.Org }}</p>
-  </div>
-  <div>
-    <p>Addresse: {{ .data.House.Addr }}</p>
-    <p>Contact: {{ .data.House.Num }} </p>
-    <a href={{ .data.House.Url }}>Lien vers l'annonce</a>
-  </div>
-  <div>
 
   </div>
-  <div>
-    <p>Informations: {{ .data.House.Info }} </p>
-    <p>{{ .data.House.Details }}</p>
-    <p>Description: {{ .data.House.Desc }} </p>
+  <div class="rightinfos">
+    <p class="bigprice">300 €</p>
+    <p class="list"><img class="picto" src="../pictures/door.png"> 1 pièce</p>
+    <p class="list"><img class="picto" src="../pictures/door.png"> 20 m²</p>
   </div>
+  <div class="leftinfos">
+    <a class="bigbtn" href={{ .data.House.Url }}>Candidater</a>
+  </div>
+
+
+  <div class="about">
+    <div class="rightinfos">
+      <h2>À PROPOS DE CET APPARTEMENT</h2>
+      <p class="text">{{ .data.House.Info }} </p>
+      <p class="text">{{ .data.House.Details }}</p>
+      <p class="text">{{ .data.House.Desc }} </p>
+    </div>
+
+
+
+    <div class="leftinfos">
+      <div>
+        <p class="text"><b>Addresse:</b> {{ .data.House.Addr }}</p>
+        <p class="text"><b>Contact:</b> {{ .data.House.Num }} </p>
+      </div>
+    </div>
+  </div>
+
 </body>
 <footer>
   <script src="../js/footer.js"></script>

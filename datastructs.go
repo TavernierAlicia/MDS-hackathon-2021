@@ -48,6 +48,7 @@ type ArticleInfos struct {
 	MainPicture string  `db:"main_picture"`
 	Prev        string  `db:"text"`
 	Relevance   float64 `db:"relevance"`
+	Date        string  `db:"creation_date"`
 }
 
 type ArticleContent struct {

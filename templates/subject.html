@@ -13,7 +13,7 @@
 
 
 <body>
-
+  <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
   <!-- obligatory range, duh -->
   {{ range .infos }}
     <!-- Title -->
@@ -43,6 +43,10 @@
     </div>
   {{ end }}
   <!-- end -->
+
+  {{ range .infos }}
+    <p class="italicdate"> Le {{ .Date }} </p>
+  {{ end }}
 
 </body>
 <footer>
