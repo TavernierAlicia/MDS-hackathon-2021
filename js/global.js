@@ -12,6 +12,33 @@ document.addEventListener('scroll', () => {
 	}, 250)
 })
 
+
+function addClassNav() {
+	if (window.scrollY > 20) {
+	if (!document.body.classList[1]) {
+			console.log("add scrolled")
+			console.log(document.body.classList)
+			document.body.classList.add('scrolled')
+		}
+	}
+}
+
+
+function removeClassNav() {
+	if (window.scrollY > 20) {
+	if (document.body.classList[1]) {
+		if (document.body.classList[1].includes("scrolled")) {
+			console.log("remove scrolled")
+			console.log(document.body.classList)
+			document.body.classList.remove('scrolled')
+		}
+		}
+	}
+}
+
+
+
+
 document.getElementById('menuButton').addEventListener('click', () => {
 	document.body.classList.toggle('menuOpen');
 })

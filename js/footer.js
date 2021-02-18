@@ -4,7 +4,7 @@ function createFooter() {
   <html lang="fr">
     <head>
       <meta charset="utf-8">
-      <title>StudentHouse - Accueil</title>
+      <title>Studenth - Accueil</title>
     </head>
     <body>
     </body>
@@ -32,7 +32,7 @@ function createFooter() {
       </div>
       </div>
       <div class="cp">
-        <p>StudentHouse - Copyright 2021</p>
+        <p>Studenth - Copyright 2021</p>
       </div>
     </footer>
   </html>

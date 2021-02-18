@@ -28,10 +28,14 @@ Studenth uses theses languages
 
 ## Installation
 
-Studenth requires [Golang](https://golang.org/) v1.12+ and [MySQL](https://www.mysql.com) or [MariaDB](https://mariadb.org) to run.
-- To install [Golang](https://golang.org/), you can follow [this tutorial](https://golang.org/doc/install)
+Studenth requires [MySQL](https://www.mysql.com) or [MariaDB](https://mariadb.org) to run.
+
 - To install [MySQL](https://www.mysql.com), you can follow [this tutorial](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)
 - But if you prefer [MariaDB](https://mariadb.org) you can follow [this one](https://mariadb.com/kb/en/getting-installing-and-upgrading-mariadb/)
+
+#### Optional
+If you want to rebuild the exec file, you have to install [Golang](https://golang.org/) v1.12+ and
+- To install [Golang](https://golang.org/), you can follow [this tutorial](https://golang.org/doc/install)
 
 Firstly, you have to clone this repository:
 ```sh
@@ -73,4 +77,4 @@ go build main.go router.go routes.go datastructs.go
 ##### Warning: 
 The app is serving on 127.0.0.1:3000, if you want to change the DNS, you have to do it manually in router.go at line 55
 
-Now, open your web browser and go to http://127.0.0.1:yourport/ and TADAAA! :fireworks: :fireworks: :fireworks:
+Now, open your web browser and go to http://127.0.0.1:3000/ and TADAAA! :fireworks: :fireworks: :fireworks:

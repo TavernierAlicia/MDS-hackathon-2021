@@ -3,8 +3,8 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>StudentHouse - Accueil</title>
-  <meta name="description" content="StudentHouse - Accueil">
+  <title>Studenth - Accueil</title>
+  <meta name="description" content="Studenth - Accueil">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="../js/navbar.js"></script>
   <link rel="stylesheet" href="../css/global.css">
@@ -13,14 +13,6 @@
 
 
 <body>
-  <h1>Bienvenue sur Studenth, le site qui répond à vos questions concernant les logements étudiants.</h1>
-  <div class="questions">
-    <h2>Une question? Posez la ici!</h2>
-    <form method="POST" name="search" action="" id="form">
-      <input type="search" class="searchBar" id="site-search" name="keyword" placeholder="ex: Comment obtenir les APL?">
-      <input type="submit" id="sendform" value="Chercher">
-    </form>
-  </div>
 
   <div class="logements">
     <h2>Logements disponibles</h2>
@@ -28,18 +20,21 @@
     <ul class="listpreview">
       {{ range .houses}}
         <li>
-          <a href="/house/{{ .Id }}">
-            <div class="houseCard" style="background-image: url({{.House.Pic}})">
-              <p class="titre">{{ .House.Title }}</p>
-              <p class="zone">{{ .House.Zone }}</p>
+          <a class="imglink" href="/house/{{ .Id }}">
+             <div class="houseCard"> <!-- style="background-image: url({{.House.Pic}})" -->
+              <img class="captions" src="{{.House.Pic}}" >
+                <div class="details">
+                  <p class="housetitle">{{ .House.Title }}</p>
+                  <p class="zone">{{ .House.Zone }}</p>
+                </div>
             </div>
           </a>
         </li>
       {{ end }}
-      <li>
-        <a href="/housing">Voir plus...</a>
-      </li>
     </ul>
+    <div class="more">
+      <a href="/housing">Voir plus...</a>
+    </div>
   </div>
 
   <div class="articles">
@@ -49,9 +44,12 @@
       {{ range .articles}}
         <li>
           <a href="/rights/{{ .Id }}">
-            <div class="houseCard" style="background-image: url({{.MainPicture}})">
-              <p class="title">{{ .Title }}</p>
-              <p class="title">{{ .Prev }}</p>
+             <div class="houseCard"> <!--style="background-image: url({{.MainPicture}})" -->
+                <img class="captions" src="{{.MainPicture}}" >
+                <div class="details">
+                  <p class="articletitle">{{ .Title }}</p>
+                  <p class="articleprev">{{ .Prev }}</p>
+              </div>
             </div>
           </a>
         </li>
