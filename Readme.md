@@ -41,12 +41,12 @@ git clone https://github.com/TavernierAlicia/MDS-hackathon-2021.git
 
 ### The database
 Now, import the file "database.sql" on your database service
-```
+```sh
 mysql -u username –-password=your_password database_name < database.sql 
 ```
 
 Then, start the service
-```
+```sh
 sudo service mysql start
 ```
 
