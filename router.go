@@ -54,5 +54,5 @@ func Router() {
 	router.POST("/rights/:subject", postComment)
 
 	// RUN ROUTER
-	router.Run("127.0.0.1:3000")
+	router.Run(":3333")
 }
