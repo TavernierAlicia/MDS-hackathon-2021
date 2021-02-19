@@ -87,4 +87,4 @@ go build main.go router.go routes.go datastructs.go
 ##### :warning: Warning: 
 The app is serving on 127.0.0.1:3000, if you want to change the DNS, you have to do it manually in router.go at line 55
 
-Now, open your web browser and go to http://127.0.0.1:3000/ and TADAAA! :fireworks: :fireworks: :fireworks:
+Now, open your web browser and go to http://127.0.0.1:3333/ and TADAAA! :fireworks: :fireworks: :fireworks:
