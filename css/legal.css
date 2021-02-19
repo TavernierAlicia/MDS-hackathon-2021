@@ -49,3 +49,25 @@ h1.faqtitle {
 	padding: 0 2.5vw 0 5rem;
 	text-align: left;
 }
+
+
+p.question{
+	font-size: 22px;
+}
+
+p.answer{
+	font-size: 17px;
+}
+
+p.description{
+	font-size: 17px;
+}
+
+
+p.legal-paragraph{
+	font-size: 17px;
+}
+
+p.legal-title {
+	font-size: 22px;
+}

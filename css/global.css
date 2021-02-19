@@ -303,6 +303,11 @@ footer .footer-right a {
 	padding-bottom: 100px;
 }
 
+.oops p {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 footer .cp {
 	padding: 2vw;
 	text-align: center;
@@ -442,7 +447,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .listpreview li {
-	border: 1.5px rgba(128, 128, 128, 0.795);
+	border-width: 1.5px;
+	border-color:rgba(122, 122, 122, 0.349);
 }
 
 .details {
@@ -629,11 +635,84 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
 .about {
-	border-bottom: 5px #002E50;
+	/* border-bottom: 5px; */
+	border-color: #002E50;
 	padding-bottom: 100px;
 }
 
 .text {
+	font-size: 20px;
+	font-family: 'Encode Sans', sans-serif;
+}
+
+.searchform {
+	padding-top: 50px;
+	width: 100%;
+	height: auto;
 	font-size: 25px;
 	font-family: 'Encode Sans', sans-serif;
+	margin-bottom: 50px;
+}
+
+.searchform label {
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+input#searchkw {
+	width: 30%;
+	height: 40px;
+	border-color:rgba(165, 165, 165, 0.247)
+}
+
+.searchform#selectzone.custom-select {
+	/* height: 50px; */
+}
+
+.searchform input[type="submit"] {
+	background-color: #002E50;
+	color: #fff;
+	border: transparent;
+	border-radius: 3;
+	height: 50px;
+	width: 100px;
+	margin-left: 5px;
+}
+
+
+.textarticle{
+	font-family: 'Encode Sans', sans-serif;
+	font-size: 20px;
+}
+
+.datearticle {
+	font-family: 'Encode Sans', sans-serif;
+	font-size: 15px;
+}
+
+.datecomment {
+	font-family: 'Encode Sans', sans-serif;
+	font-size: 10px;
+}
+
+.name {
+	font-family: 'Encode Sans', sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color:#002E50
+}
+
+.comment {
+	font-family: 'Encode Sans', sans-serif;
+	font-size: 15px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.comments {
+	margin-bottom: 40px;
+}
+
+div.searchform {
+	align-content: center;
 }

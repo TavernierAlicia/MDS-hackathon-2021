@@ -65,3 +65,10 @@ type FAQ struct {
 	Answer    string  `db:"answer"`
 	Relevance float64 `db:"relevance"`
 }
+
+type ArticleComments struct {
+	Id      int    `db:"id"`
+	Name    string `db:"pseudo"`
+	Comment string `db:"content"`
+	Date    string `db:"creation_date"`
+}

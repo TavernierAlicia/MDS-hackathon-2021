@@ -97,7 +97,7 @@ func housingPage(c *gin.Context) {
 	// request API with a try/catch
 	Block{
 		Try: func() {
-			resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=1000")
+			resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=300")
 			if err != nil {
 				log.Error("Cannot get data from API")
 			}
@@ -171,12 +171,12 @@ func searchHome(c *gin.Context) {
 		housingPage(c)
 		return
 	case (zone != "tous" && keyword == ""):
-		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=1000&facet=zone&refine.zone=" + zone
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&q=&rows=300&facet=zone&refine.zone=" + zone
 	case (zone == "tous" && keyword != ""):
 		zone = ""
-		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=1000&q=" + keyword
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=300&q=" + keyword
 	case (zone != "tous" && keyword != ""):
-		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=1000&q=" + keyword + "&facet=zone&refine.zone=" + zone
+		req = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=300&q=" + keyword + "&facet=zone&refine.zone=" + zone
 	default:
 		housingPage(c)
 		return
@@ -259,13 +259,51 @@ func subjectPage(c *gin.Context) {
 		log.Error("Cannot connect to database")
 	}
 
+	comments := []*ArticleComments{}
+	db.Select(&comments, "SELECT id, pseudo, content, creation_date FROM comment WHERE article_id = ?", id)
+
 	infos := []*ArticleInfos{}
 	db.Select(&infos, "SELECT id, title, main_picture, creation_date, '' AS text, 0.0 AS relevance FROM article WHERE id = ?", id)
 
 	content := []*ArticleContent{}
 	db.Select(&content, "SELECT id, IFNULL(low_title, '') AS low_title, IFNULL(text, '') AS text, IFNULL(picture, '') AS picture FROM article_content WHERE article_id = ? ORDER BY id ASC", id)
 
-	c.HTML(200, "subject.html", map[string]interface{}{"infos": infos, "content": content})
+	c.HTML(200, "subject.html", map[string]interface{}{"comments": comments, "rows": len(comments), "infos": infos, "content": content})
+}
+
+// POST COMMENT
+func postComment(c *gin.Context) {
+
+	id := strings.Replace(c.Request.URL.Path, "/rights/", "", -1)
+
+	c.Request.ParseForm()
+	pseudo := strings.Join(c.Request.PostForm["pseudo"], " ")
+	comment := strings.Join(c.Request.PostForm["comment"], " ")
+
+	fmt.Println(id)
+	fmt.Println(pseudo)
+	fmt.Println(comment)
+
+	// prevent from errors in future devlopment
+	if comment != "" && pseudo != "" && id != "" {
+
+		db, err := RunDb()
+		if err != nil {
+			log.Error("Cannot connect to database")
+		}
+
+		_, err = db.Exec("INSERT INTO comment (pseudo, content, article_id) VALUES (?, ?, ?)", pseudo, comment, id)
+
+		if err != nil {
+			log.Error("Request failed")
+			subjectPage(c)
+			// don't block user for now
+		} else {
+			subjectPage(c)
+		}
+	} else {
+		subjectPage(c)
+	}
 }
 
 // FAQ
@@ -297,7 +335,7 @@ func searchAll(c *gin.Context) {
 
 	Block{
 		Try: func() {
-			resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=1000&q=" + keywords)
+			resp, err := http.Get("https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=300&q=" + keywords)
 			if err != nil {
 				log.Error("Cannot get data from API")
 			}

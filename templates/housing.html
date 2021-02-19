@@ -12,11 +12,11 @@
 </head>
 <body>
   <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
-  <h1>Logements</h1>
+  
   <div class="searchform">
     <form method="POST" name="search" action="" id="form">
       <div class="zoneinput">
-        <label for="selectzone">Zone </label>
+        <label for="selectzone">Rechercher par zone </label>
           <select class="custom-select" name="zone" id="selectzone">
             <script src="../js/displayzones.js"></script>
           </select>
@@ -25,22 +25,24 @@
         <label for="keyword">Rechercher par mot clé</label>
         <input type="search" id="searchkw" name="keyword">
       </div>
-      <input type="submit" id="sendform" value="Chercher">
+      <div class="search">
+      <input type="submit" id="sendform" value="Chercher" >
+    </div>
     </form>
   </div>
-
+  <h1>Logements</h1>
   <div class="houseslist">
     {{ if ne .keywords "" }}
       {{ if eq .zone "" }}
-        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans toute la France ({{ .rows }}) </h2>
+        <h2 class="lighttitle">Résultats pour les mots clés: "{{ .keywords }}" dans toute la France ({{ .rows }}) </h2>
       {{ else }}
-        <h2>Résultats pour les mots clés: "{{ .keywords }}" dans la zone "{{ .zone }}" ({{ .rows }})</h2>
+        <h2 class="lighttitle">Résultats pour les mots clés: "{{ .keywords }}" dans la zone "{{ .zone }}" ({{ .rows }})</h2>
       {{ end }}
     {{ else }}
       {{ if eq .zone ""}}
-        <h2>Résultats ({{ .rows }}) : </h2>
+        <h2 class="lighttitle">Résultats ({{ .rows }}) : </h2>
       {{ else}}
-        <h2>Résultats pour la zone "{{ .zone }}" ({{ .rows }})</h2>
+        <h2 class="lighttitle">Résultats pour la zone "{{ .zone }}" ({{ .rows }})</h2>
       {{ end }}
     {{ end }}
 
@@ -59,7 +61,7 @@
               {{ end }}
                 <div class="details">
                   <div class="left">
-                    <p class="titre">{{ .House.Title }}</p>
+                    <p class="housetitle">{{ .House.Title }}</p>
                     <p class="zone">{{ .House.Zone }}</p>
                   </div>
                   <div class="right">
@@ -74,7 +76,7 @@
       {{ else }}
         </ul>
         <div class="noresults">
-          <p>Aucuns résultats obtenus pour cette recherche, nous vous conseillons de réitérer votre demande avec de nouveaux paramètres.</p>
+          <p class="noresults">Aucuns résultats obtenus pour cette recherche, nous vous conseillons de réitérer votre demande avec de nouveaux paramètres.</p>
         </div>
         <ul>
       {{ end }}

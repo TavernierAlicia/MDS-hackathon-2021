@@ -12,22 +12,24 @@
 </head>
 <body>
   <img class="floatBtn" src="../pictures/float.png" onclick="scrollButton()">
-  <h1>Mes droits</h1>
+  
   <div class="searchform">
     <form method="POST" name="search" action="" id="form">
-      <div class="search">
+      <div class="search searchBar">
         <label for="keyword">Rechercher par mot clé</label>
         <input type="search" id="searchkw" name="keyword">
+        <input type="submit" id="sendform" value="Chercher" >
       </div>
-      <input type="submit" id="sendform" value="Chercher">
+      
     </form>
   </div>
 
+  <h1>Mes droits</h1>
   <div class="houseslist">
     {{ if eq .keywords "" }}
-      <h2>Tous nos articles ({{ .rows }}) :</h2>
+      <h2 class="lighttitle">Tous nos articles ({{ .rows }}) :</h2>
     {{ else }}
-      <h2>Résultats pour les mots clés: "{{ .keywords }}" ({{ .rows }}):</h2>
+      <h2 class="lighttitle">Résultats pour les mots clés: "{{ .keywords }}" ({{ .rows }}):</h2>
     {{ end }}
 
 

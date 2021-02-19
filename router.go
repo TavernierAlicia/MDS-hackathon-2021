@@ -15,10 +15,10 @@ func Router() {
 
 	//to include js
 	router.Static("/js", "./js")
-	
+
 	//to include css
 	router.Static("/css", "./css")
-	
+
 	//to include images
 	router.Static("/pictures", "./pictures")
 
@@ -51,6 +51,7 @@ func Router() {
 	router.POST("/", searchAll)
 	router.POST("/housing", searchHome)
 	router.POST("/rights", searchRights)
+	router.POST("/rights/:subject", postComment)
 
 	// RUN ROUTER
 	router.Run("127.0.0.1:3000")
