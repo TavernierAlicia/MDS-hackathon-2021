@@ -43,7 +43,6 @@
       {{ end }}
     </div>
   {{ end }}
-  <!-- end -->
 
   {{ range .infos }}
     <p class="datearticle"> Le {{ .Date }} </p>
@@ -56,15 +55,15 @@
   
   <div class="searchform">
     <h2 >Postez votre commentaire</h2>
-    <form method="POST" name="search" action="" id="form">
+    <form method="POST" name="search" action="" id="form" >
       <div class="search">
         <label for="pseudo">Entrez un pseudo</label>
-        <input type="text" id="pseudo" name="pseudo">
+        <input type="text" id="pseudo" name="pseudo" required >
       </div>
       <div class="search">
         <label for="comment">Tapez votre commentaire</label>
-        <textarea id="comment" name="comment"></textarea>
-        <input type="submit" id="sendform" value="Envoyer" >
+        <textarea id="comment" name="comment" required ></textarea>
+        <input type="submit" id="sendform" value="Envoyer">
       </div>
       
     </form>

@@ -30,7 +30,7 @@
         {{ range .houses}}
           <li>
             <a class="imglink" href="/house/{{ .Id }}">
-              <div class="houseCard"> <!-- style="background-image: url({{.House.Pic}})" -->
+              <div class="houseCard"> 
                 <img class="captions" src="{{.House.Pic}}" >
                   <div class="details">
                     <div class="left">
@@ -57,7 +57,7 @@
         {{ range .articles}}
           <li>
             <a class="imglink" href="/rights/{{ .Id }}">
-              <div class="houseCard"> <!--style="background-image: url({{.MainPicture}})" -->
+              <div class="houseCard"> 
                 <img class="captions" src="{{.MainPicture}}" >
                 <div class="details">
                   <p class="articletitle">{{ .Title }}</p>

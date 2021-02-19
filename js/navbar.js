@@ -3,8 +3,8 @@ function createNav() {
     <!DOCTYPE html>
     <html lang="fr">
       <head>
+        <link rel="icon" type="image/png" href="../pictures/black_hat.png" />
         <meta charset="utf-8">
-        <link rel="icon" type="image/png" href="../pictures/favicon.png" />
       </head>
       <body>
         <nav onmouseleave=addClassNav() onmouseenter=removeClassNav()>

@@ -78,7 +78,6 @@ func indexPage(c *gin.Context) {
 			articles := []*ArticleInfos{}
 			err = db.Select(&articles, "SELECT article.id, article.title, article.main_picture, article.creation_date, CONCAT(LEFT(article_content.text, 100), '...') AS text, 0.0 AS relevance FROM article JOIN article_content ON article.id = article_content.article_id GROUP BY article.id LIMIT 4")
 
-			fmt.Println(articles)
 			c.HTML(200, "index.html", map[string]interface{}{"houses": houses.Records, "articles": articles})
 		},
 		Catch: func(e Exception) {
@@ -113,6 +112,7 @@ func housingPage(c *gin.Context) {
 			if err != nil {
 				log.Error("unmarshal error")
 			}
+
 			c.HTML(200, "housing.html", map[string]interface{}{"data": data.Records, "zone": zone, "keywords": keyword, "rows": len(data.Records)})
 		},
 		Catch: func(e Exception) {
@@ -234,7 +234,6 @@ func searchRights(c *gin.Context) {
 		rightsPage(c)
 	}
 
-	fmt.Println(keywords)
 	db, err := RunDb()
 	if err != nil {
 		log.Error("Cannot connect to database")
@@ -279,10 +278,6 @@ func postComment(c *gin.Context) {
 	c.Request.ParseForm()
 	pseudo := strings.Join(c.Request.PostForm["pseudo"], " ")
 	comment := strings.Join(c.Request.PostForm["comment"], " ")
-
-	fmt.Println(id)
-	fmt.Println(pseudo)
-	fmt.Println(comment)
 
 	// prevent from errors in future devlopment
 	if comment != "" && pseudo != "" && id != "" {

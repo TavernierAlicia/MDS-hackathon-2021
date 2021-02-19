@@ -44,8 +44,16 @@ git clone https://github.com/TavernierAlicia/MDS-hackathon-2021.git
 ```
 
 ### The database
+
+Before importing the database, you have to create one with a similar name in your own service
+```sh
+mysql -u username –-password=your_password 
+CREATE DATABASE studenth;
+```
+
 Now, import the file "database.sql" on your database service
 ```sh
+cd /path/to/sql/file
 mysql -u username –-password=your_password database_name < database.sql 
 ```
 
