@@ -4,9 +4,11 @@
 Studenth is a website for french students, developped on the occasion of national hackaton
 of My Digital School.
 
+:star2: You can visit the website by clicking :point_right: [here](http://ec2-15-236-205-10.eu-west-3.compute.amazonaws.com) :point_left:
+
 - :wave: Studenth is here to help :wave:
-- Studenth is nice
-- Studenth is beautifull :kiss:
+- :imp: Studenth is an heresy :imp:
+- :blush: Studenth is not beautifull but nice :kiss:
 
 ## Features
 
@@ -62,7 +64,7 @@ Then, start the service
 sudo service mysql start
 ```
 
-##### Warning: 
+##### :warning: Warning: 
 My config is maybe not yours, so you can configure the port and host of the database in "conf.json" file
 
 ### The program
@@ -82,7 +84,7 @@ Now you can launch the program compiled for Linux OS...
 go build main.go router.go routes.go datastructs.go
 ./main
 ```
-##### Warning: 
+##### :warning: Warning: 
 The app is serving on 127.0.0.1:3000, if you want to change the DNS, you have to do it manually in router.go at line 55
 
 Now, open your web browser and go to http://127.0.0.1:3000/ and TADAAA! :fireworks: :fireworks: :fireworks:
