@@ -298,6 +298,18 @@ footer .footer-right a {
 	transition: filter 0.2s ease-in-out, transform 0.2s ease-in-out, -webkit-filter 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
 }
 
+div.footer-left {
+	width: 70%;
+}
+
+div.footer-middle {
+	width: 80%;
+}
+
+div.footer-right {
+	width: 500px;
+}
+
 .oops {
 	text-align: center;
 	padding-bottom: 100px;
@@ -665,9 +677,6 @@ input#searchkw {
 	border-color:rgba(165, 165, 165, 0.247)
 }
 
-.searchform#selectzone.custom-select {
-	/* height: 50px; */
-}
 
 .searchform input[type="submit"] {
 	background-color: #002E50;
@@ -675,7 +684,7 @@ input#searchkw {
 	border: transparent;
 	border-radius: 3;
 	height: 50px;
-	width: 100px;
+	width: auto;
 	margin-left: 5px;
 }
 
@@ -716,3 +725,49 @@ input#searchkw {
 div.searchform {
 	align-content: center;
 }
+
+select {
+	background-image: url('https://cdn.iconscout.com/icon/free/png-512/down-arrow-1767499-1502567.png');
+	background-position: center right 1.5rem;
+	background-size: auto 50%;
+	background-repeat: no-repeat;
+}
+
+select,
+textarea,
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	     appearance: none;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	font-size: var(--placeholder-size);
+}
+
+textarea::placeholder { line-height: 1; }
+
+select {
+	height: 30px;
+	width: 50%;
+	background-color: #ededed;
+	margin-bottom: 30px;
+	border-radius: 9px;
+	border: none;
+	padding: 0 10px;
+	display: block;
+	font-size: 14px;
+}
+
+textarea {	height: 100px;
+	width: 50%;
+	resize: vertical;
+	padding-top: var(--placeholder-size);
+	background-color: #ededed;
+	margin-bottom: 30px;
+	border-radius: 9px;
+	border: none;
+	padding: 0 10px;
+	display: block;
+	font-size: 14px;
+}
+form .button { text-align: center; }
